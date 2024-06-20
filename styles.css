@@ -6,7 +6,6 @@ body {
 }
 
 header {
-    background-color: #003366;
     color: white;
     text-align: center;
     padding: 0 0;
@@ -14,7 +13,7 @@ header {
 
 header p {
     margin: 0; /* pタグのマージンをリセット */
-    padding: 0.5em 0; /* pタグの上下パディングを0.5emに設定 */
+    padding: 0 0; /* pタグの上下パディングを0.5emに設定 */
 }
 
 header .images {
@@ -28,6 +27,7 @@ header .images {
     height: 80px;
     display: block;
     margin: 0 auto;
+    padding: 0.3em 0;
 }
 
 .applink img {
