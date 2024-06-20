@@ -1,2 +1,2 @@
-# support-page
-SHOTIMEアプリのサポートページ
+# SHOTIMES
+SHOTIMESアプリのサポートページ
