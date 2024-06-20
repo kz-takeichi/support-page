@@ -30,6 +30,10 @@ header .images {
     margin: 0 auto;
 }
 
+.applink {
+    width: 120px
+}
+
 main {
     padding: 1em;
 }
