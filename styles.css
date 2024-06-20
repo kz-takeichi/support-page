@@ -31,7 +31,9 @@ header .images {
 }
 
 .applink {
-    width: 120px
+    width: 25vw; /* 横幅を画面全体の25%に設定 */
+    height: auto; /* 縦幅をアスペクト比を維持して自動調整 */
+    display: block; /* 必要に応じて、ブロック要素に設定 */
 }
 
 main {
