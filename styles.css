@@ -37,6 +37,10 @@ header .images {
     margin: 0 auto; /* 画像を中央に配置 */
 }
 
+.info {
+    display: none;
+}
+
 main {
     padding: 1em;
 }
