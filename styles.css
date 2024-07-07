@@ -31,18 +31,16 @@ header .images {
 }
 
 .applinks img {
-    width: 30%;/
-    height: auto;
+    width: 30%; /* 各リンクの幅を画面の横幅の30%に設定します */
+    margin: 0 10px;
+    display: flex;
+    justify-content: center; /* 画像を中央揃えにします */
 }
 
 .applinks {
     display: flex;
     justify-content: space-around;
     align-items: center;
-}
-
-.applinks a {
-    margin: 0 10px;
 }
 
 .info {
