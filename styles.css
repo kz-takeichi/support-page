@@ -31,7 +31,7 @@ header .images {
 }
 
 .applinks img {
-    max-width: 100px; /* 画像の最大幅を設定します。必要に応じて調整してください。*/
+    max-width: 250px; /* 画像の最大幅を設定します。必要に応じて調整してください。*/
     height: auto;
 }
 
