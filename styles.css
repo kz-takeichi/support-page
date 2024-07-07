@@ -37,7 +37,7 @@ header .images {
 }
 
 .applinks a {
-    width: 30%; /* 各リンクの幅を画面の横幅の30%に設定します */
+    width: 40%; /* 各リンクの幅を画面の横幅の30%に設定します */
     margin: 0 10px;
     display: flex;
     justify-content: center; /* 画像を中央揃えにします */
