@@ -124,5 +124,5 @@ tr:hover {
 /* 4列目の設定 */
 th:nth-child(4), td:nth-child(4) {
     white-space: normal; /* nowrapを解除 */
-    width: 150px; /* 幅を指定 */
+    width: 450px; /* 幅を指定 */
 }
