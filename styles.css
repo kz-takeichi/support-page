@@ -109,6 +109,7 @@ th, td {
 th {
     background-color: #255997;
     border-bottom: 2px solid #e0e0e0;
+    color: white;
 }
 tr {
     border-bottom: 1px solid #e0e0e0;
