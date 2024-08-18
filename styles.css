@@ -124,7 +124,7 @@ tr:hover {
 /* 2列目の設定 */
 th:nth-child(2), td:nth-child(2) {
     white-space: normal; /* nowrapを解除 */
-    width: 600px; /* 幅を指定 */
+    width: 1200px; /* 幅を指定 */
 }
 
 /* スマホ向けの2列目設定 画面幅が600px以下の場合に適用*/
