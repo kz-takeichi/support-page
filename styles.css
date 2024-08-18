@@ -93,3 +93,28 @@ footer {
     text-align: left;
     font-size: 0.8em;
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+th, td {
+    padding: 12px 15px;
+}
+th {
+    background-color: #f4f4f4;
+    border-bottom: 2px solid #e0e0e0;
+}
+tr {
+    border-bottom: 1px solid #e0e0e0;
+}
+tr:nth-of-type(even) {
+    background-color: #f9f9f9;
+}
+tr:hover {
+    background-color: #f1f1f1;
+}
