@@ -23,7 +23,12 @@
 <body>
     <header>
         <section class="images">
-            <img src="banner1.png" alt="無料の大谷専門速報アプリ爆誕、大谷翔平のホームランをTwitterやニュースより速く通知">
+            <picture>
+                <!-- モバイル向けの画像 -->
+                <source srcset="banner1-small.png" media="(max-width: 1200px)">
+                <!-- デフォルトの画像 -->
+                <img src="banner1.png" alt="無料の大谷専門速報アプリ爆誕、大谷翔平のホームランをTwitterやニュースより速く通知">
+            </picture>
             <h1 class="info">大谷翔平の最新成績とニュースを即座に確認できるアプリの機能紹介</h1>
         </section>
     </header>
