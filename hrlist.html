@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shohei Ohtani HR Tracker</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      background: linear-gradient(to bottom, #005A9C, #003366);
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 2rem;
+      gap: 2rem;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      overflow: hidden;
+      width: 300px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      transition: transform 0.5s, opacity 0.5s;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .thumbnail {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background-color: #000;
+    }
+    .content {
+      padding: 1rem;
+    }
+    .title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .info {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+    a {
+      color: #FFD700;
+      text-decoration: none;
+    }
+    @media (max-width: 600px) {
+      .card {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align:center; padding-top: 1rem;">大谷翔平 ホームラン一覧</h1>
+  <div class="container" id="card-container"></div>
+
+  <script>
+    async function fetchData() {
+      const response = await fetch('http://localhost:8000/api/newsLatestOnes/');
+      const data = await response.json();
+
+      // gamedate降順にソート
+      data.sort((a, b) => b.gamedate.localeCompare(a.gamedate));
+
+      return data;
+    }
+
+    function extractYouTubeVideoId(url) {
+      const regex = /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/))([\w-]{11})/;
+      const match = url.match(regex);
+      return match ? match[1] : null;
+    }
+
+    function formatDateToJapanese(dateStr) {
+      if (!/^\d{8}$/.test(dateStr)) return dateStr; // フォールバック
+
+      const year = dateStr.slice(0, 4);
+      const month = dateStr.slice(4, 6);
+      const day = dateStr.slice(6, 8);
+
+      return `${year}年${month}月${day}日`;
+    }
+
+    function createCard(item) {
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      let thumbnailHTML = '';
+
+      if (item.link3) {
+        const videoId = extractYouTubeVideoId(item.link3);
+        if (videoId) {
+          const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+          thumbnailHTML = `<a href="${item.link3}" target="_blank">
+                            <img src="${thumbnailUrl}" class="thumbnail" alt="YouTube Thumbnail">
+                           </a>`;
+        }
+      }
+
+      const formattedDate = formatDateToJapanese(item.gamedate);
+
+      card.innerHTML = `
+        ${thumbnailHTML}
+        <div class="content">
+          <div class="title">${item.title1}</div>
+          <div class="info">${formattedDate}</div>
+          <div class="info">${item.hrcount}号 ${item.hrtype}</div>
+          <div class="info">${item.hrinning}</div>
+          <div class="info">ニュース元: ${item.media1}</div>
+          <div class="info"><a href="https://${item.link1}" target="_blank">ニュース記事を見る</a></div>
+        </div>
+      `;
+
+      return card;
+    }
+
+    async function init() {
+      const container = document.getElementById('card-container');
+      const data = await fetchData();
+
+      data.forEach((item, index) => {
+        const card = createCard(item);
+        container.appendChild(card);
+
+        // フェードインアニメーション（順番に遅らせる）
+        setTimeout(() => {
+          card.classList.add('visible');
+        }, index * 150);
+      });
+    }
+
+    init();
+  </script>
+</body>
+</html>
