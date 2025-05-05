@@ -1,9 +1,18 @@
-
+/*
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
+}
+*/
+
+body {
+  font-family: 'Helvetica Neue', sans-serif;
+  background: linear-gradient(to bottom, #005A9C, #003366);
+  color: white;
+  margin: 0;
+  padding: 0;
 }
 
 header {
