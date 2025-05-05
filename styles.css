@@ -55,6 +55,7 @@ header .images {
 }
 */
 
+/*
 body {
   font-family: 'Helvetica Neue', sans-serif;
   background: linear-gradient(to bottom, #005A9C, #003366);
@@ -62,6 +63,7 @@ body {
   margin: 0;
   padding: 0;
 }
+*/
 .container {
   display: flex;
   flex-wrap: wrap;
