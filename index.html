@@ -55,12 +55,15 @@
             </a>
         </section>
 
+
+        <div class="history">
         <center><p> ~ 2025年4月29日 ホームページ内に新コンテンツ「大谷翔平ホームラン一覧」を追加しました</p></center>
         <center><p> ~ 2024年10月14日 打席通知機能を追加。またホームラン,打席それぞれの通知on/offを選択できるようになりました</p></center>
         <center><p> ~ 2024年9月21日 ㊗️50-50達成 過去シーズンとのホームラン量産ペース比較や打球破壊力データを掲載しました</p></center>
         <center><p> ~ 2024年9月8日 日毎の成績欄に盗塁成功数が追加されました</p></center>
         <center><p> ~ 2024年8月10日 ニュース欄にホームランのYouTube動画リンクが追加されました</p></center>
         <center><p> ~ 2024年7月13日 Android版アプリが公開されました</p></center>
+        </div>
         <BR>
 
         <section class="features">
@@ -115,13 +118,6 @@
                     <img src="banner4.webp" alt="MLB移籍後の全ホームランのデータを徹底解析" width="1608">
                 </picture>
             </section>
-            
-            <div class="feature">
-                <h2 id="hrlist">大谷翔平ホームラン一覧（Web限定コンテンツ）</h2>
-                <p>Web限定コンテンツとして過去のホームラン記録をYouTube動画リンクとともに全掲載！</p>
-                <p>アプリの中ではさらに充実したコンテンツがお楽しみいただけます</p>
-                <p></p><a href="https://support.shotimes.jdncs.com/hrlist.html">ホームラン一覧</a></p>
-            </div>
 
             <section class="applinks">
                 <a href="https://apps.apple.com/jp/app/shotimes/id6504263446">             
@@ -141,7 +137,13 @@
                     </picture>
                 </a>
             </section>
-                
+            
+            <div class="feature">
+                <h2 id="hrlist">大谷翔平ホームラン一覧（Web限定コンテンツ）</h2>
+                <p>Web限定コンテンツとして過去のホームラン記録をYouTube動画リンクとともに全掲載！</p>
+                <p>アプリの中ではさらに充実したコンテンツがお楽しみいただけます</p>
+            </div>
+            <div class="container" id="card-container"></div>
             <BR>
             
         </section>
@@ -157,5 +159,84 @@
         <p><a href="https://apps.shotimes.jdncs.com/privacy-policy">プライバシーポリシー</a></p>
         <p>問い合わせ： shotimes@jdncs.com
     </footer>
+
+    <script>
+    async function fetchData() {
+      const response = await fetch('https://apps.shotimes.jdncs.com/api/newsLatestOnes/');
+      const data = await response.json();
+
+      // gamedate降順にソート
+      data.sort((a, b) => b.gamedate.localeCompare(a.gamedate));
+
+      return data;
+    }
+
+    function extractYouTubeVideoId(url) {
+      const regex = /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/))([\w-]{11})/;
+      const match = url.match(regex);
+      return match ? match[1] : null;
+    }
+
+    function formatDateToJapanese(dateStr) {
+      if (!/^\d{8}$/.test(dateStr)) return dateStr; // フォールバック
+
+      const year = dateStr.slice(0, 4);
+      const month = dateStr.slice(4, 6);
+      const day = dateStr.slice(6, 8);
+
+      return `${year}年${month}月${day}日`;
+    }
+
+    function createCard(item) {
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      let thumbnailHTML = '';
+
+      if (item.link3) {
+        const videoId = extractYouTubeVideoId(item.link3);
+        if (videoId) {
+          const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+          thumbnailHTML = `<a href="${item.link3}" target="_blank">
+                            <img src="${thumbnailUrl}" class="thumbnail" alt="YouTube Thumbnail">
+                           </a>`;
+        }
+      }
+
+      const formattedDate = formatDateToJapanese(item.gamedate);
+
+      card.innerHTML = `
+        ${thumbnailHTML}
+        <div class="content">
+          <div class="title">${item.title1}</div>
+          <div class="info">${formattedDate}</div>
+          <div class="info">${item.hrcount}号 ${item.hrtype}</div>
+          <div class="info">${item.hrinning}</div>
+          <div class="info">ニュース元: ${item.media1}</div>
+          <div class="info"><a href="https://${item.link1}" target="_blank">ニュース記事を見る</a></div>
+        </div>
+      `;
+
+      return card;
+    }
+
+    async function init() {
+      const container = document.getElementById('card-container');
+      const data = await fetchData();
+
+      data.forEach((item, index) => {
+        const card = createCard(item);
+        container.appendChild(card);
+
+        // フェードインアニメーション（順番に遅らせる）
+        setTimeout(() => {
+          card.classList.add('visible');
+        }, index * 150);
+      });
+    }
+
+    init();
+  </script>
+
 </body>
 </html>
