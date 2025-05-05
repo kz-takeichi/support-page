@@ -10,7 +10,7 @@ body {
 body {
   font-family: 'Helvetica Neue', sans-serif;
   background: linear-gradient(to bottom, #005A9C, #003366);
-  color: white;
+  /* color: white; */
   margin: 0;
   padding: 0;
 }
