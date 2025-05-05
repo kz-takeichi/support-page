@@ -92,6 +92,7 @@ header .images {
   background-color: #000;
 }
 .content {
+  color: white;
   padding: 1rem;
 }
 .title {
