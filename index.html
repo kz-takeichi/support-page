@@ -179,12 +179,20 @@
 
     function formatDateToJapanese(dateStr) {
       if (!/^\d{8}$/.test(dateStr)) return dateStr; // フォールバック
-
+    
       const year = dateStr.slice(0, 4);
       const month = dateStr.slice(4, 6);
       const day = dateStr.slice(6, 8);
-
-      return `${year}年${month}月${day}日`;
+    
+      // Dateオブジェクトを使って1日加算
+      const date = new Date(`${year}-${month}-${day}`);
+      date.setDate(date.getDate() + 1);
+    
+      const newYear = date.getFullYear();
+      const newMonth = String(date.getMonth() + 1).padStart(2, '0'); // 月は0-indexed
+      const newDay = String(date.getDate()).padStart(2, '0');
+    
+      return `${newYear}年${newMonth}月${newDay}日`;
     }
 
     function createCard(item) {
