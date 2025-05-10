@@ -27,7 +27,7 @@ header p {
 }
 
 header .images {
-    margin: 0; /* sectionのマージンをリセット */
+    margin: 0 auto; /* sectionのマージンをリセット */
     padding: 0; /* sectionのパディングをリセット */
 }
 
